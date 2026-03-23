@@ -4,8 +4,9 @@ import { VitePWA } from "vite-plugin-pwa";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 
+// https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: "/",   // <<< MUDA AQUI
+  base: "./",
   server: {
     host: "::",
     port: 8080,
@@ -30,6 +31,21 @@ export default defineConfig(({ mode }) => ({
             sizes: "512x512",
             type: "image/jpeg",
             purpose: "any maskable",
+          },
+        ],
+      },
+      workbox: {
+        runtimeCaching: [
+          {
+            urlPattern: ({ request }) => request.destination === "image",
+            handler: "CacheFirst",
+            options: {
+              cacheName: "images-cache",
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 60 * 60 * 24 * 30,
+              },
+            },
           },
         ],
       },
