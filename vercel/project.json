@@ -1,0 +1,7 @@
+{
+  "name": "alpha-assess-suite",
+  "framework": "vite",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "devCommand": "npm run dev"
+}
